@@ -214,3 +214,12 @@ autoplay = "idle"
 tree_root = SubResource("AnimationNodeStateMachine_06tpx")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -60.999996
+offset_right = 280.0
+offset_bottom = 71.0
+scale = Vector2(0.11645892, 0.10468568)
+theme_override_font_sizes/font_size = 96
+text = "Debug"

@@ -2,11 +2,15 @@ extends CharacterBody2D
 
 class_name Player
 
+@export var fall_y_bound: float = 700.0
+
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var debug_label: Label = $DebugLabel
 
 const GRAVITY: float = 690.0
 const JUMP_SPEED: float = -270.0
 const RUN_SPEED: float = 200.0
+const MAX_FALL: float = 350.0
 
 # animations are handled in the animation tree. click a transition. 
 # expression box under Advance. contains code
@@ -27,4 +31,19 @@ func _physics_process(delta: float) -> void:
 	if !is_equal_approx(velocity.x, 0.0):
 		sprite_2d.flip_h = velocity.x < 0
 	
+	velocity.y = clampf(velocity.y, JUMP_SPEED, MAX_FALL)
+	
+	y_bound_fall_check()
 	move_and_slide()
+	update_debug_label()
+
+func update_debug_label() -> void:
+	var ds: String = ""
+	ds += "floor: %s \n" % [is_on_floor()]
+	ds += "p: %.1f %.1f \n" % [global_position.x, global_position.y]
+	ds += "v: %.1f %.1f" % [velocity.x, velocity.y]
+	debug_label.text = ds
+
+func y_bound_fall_check() -> void:
+	if global_position.y > fall_y_bound:
+		queue_free()
