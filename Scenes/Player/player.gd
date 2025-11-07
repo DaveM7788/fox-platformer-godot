@@ -8,6 +8,9 @@ const GRAVITY: float = 690.0
 const JUMP_SPEED: float = -270.0
 const RUN_SPEED: float = 200.0
 
+# animations are handled in the animation tree. click a transition. 
+# expression box under Advance. contains code
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
