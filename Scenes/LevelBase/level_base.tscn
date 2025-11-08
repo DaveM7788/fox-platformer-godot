@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://dbwqu5go2wnsk"]
+[gd_scene load_steps=6 format=4 uid="uid://dbwqu5go2wnsk"]
 
 [ext_resource type="Texture2D" uid="uid://cfqj4cpnlrjuq" path="res://assets/tiles/Terrain (16x16).png" id="1_fe7a1"]
 [ext_resource type="PackedScene" uid="uid://k3qyw050g18l" path="res://Scenes/Player/player.tscn" id="2_1l5ts"]
+[ext_resource type="PackedScene" uid="uid://b30g8xkbcc5q7" path="res://Scenes/Enemies/enemy_base.tscn" id="3_2wk6i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1l5ts"]
 resource_name = "Platforms"
@@ -252,3 +253,5 @@ tile_set = SubResource("TileSet_2wk6i")
 
 [node name="Player" parent="." instance=ExtResource("2_1l5ts")]
 position = Vector2(33, -59)
+
+[node name="EnemyBase" parent="." instance=ExtResource("3_2wk6i")]
