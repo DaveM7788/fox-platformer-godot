@@ -8,8 +8,8 @@ class_name Player
 @onready var debug_label: Label = $DebugLabel
 
 const GRAVITY: float = 690.0
-const JUMP_SPEED: float = -270.0
-const RUN_SPEED: float = 200.0
+const JUMP_SPEED: float = -400.0
+const RUN_SPEED: float = 150.0
 const MAX_FALL: float = 350.0
 
 # animations are handled in the animation tree. click a transition. 
