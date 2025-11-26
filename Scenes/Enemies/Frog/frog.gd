@@ -20,12 +20,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0.0
 		animated_sprite_2d.play("idle")
 
-func flip_me() -> void:
-	if global_position.x > _player_ref.global_position.x:
-		animated_sprite_2d.flip_h = false
-	else:
-		animated_sprite_2d.flip_h = true
-
 func apply_jump() -> void:
 	if !is_on_floor() || !_can_jump || !_seen_player:
 		return
@@ -40,7 +34,7 @@ func apply_jump() -> void:
 func start_timer() -> void:
 	jump_timer.wait_time = randf_range(2.0, 4.0)
 	jump_timer.start()
-	
+
 func _on_jump_timer_timeout() -> void:
 	_can_jump = true
 	# print("frog can jump setting to true")

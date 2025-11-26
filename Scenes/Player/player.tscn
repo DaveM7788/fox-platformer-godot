@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://k3qyw050g18l"]
+[gd_scene load_steps=29 format=3 uid="uid://k3qyw050g18l"]
 
 [ext_resource type="Script" uid="uid://mdms8wj30scw" path="res://Scenes/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://dbdkxkjogetqm" path="res://assets/player/player.png" id="1_uvnfx"]
@@ -189,6 +189,10 @@ states/Start/position = Vector2(218, 100.253105)
 transitions = ["Start", "Grounded", SubResource("AnimationNodeStateMachineTransition_oikmp"), "Grounded", "Air", SubResource("AnimationNodeStateMachineTransition_xpcdj"), "Air", "Grounded", SubResource("AnimationNodeStateMachineTransition_mtuoh")]
 graph_offset = Vector2(33.690144, 20.07491)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpcdj"]
+radius = 6.0
+height = 16.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_a3d8c")
@@ -223,3 +227,10 @@ offset_bottom = 71.0
 scale = Vector2(0.11645892, 0.10468568)
 theme_override_font_sizes/font_size = 96
 text = "Debug"
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CapsuleShape2D_xpcdj")

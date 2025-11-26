@@ -30,6 +30,12 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	die()
 
+func flip_me() -> void:
+	if global_position.x > _player_ref.global_position.x:
+		animated_sprite_2d.flip_h = false
+	else:
+		animated_sprite_2d.flip_h = true
+
 func die() -> void:
 	set_physics_process(false)
 	queue_free()
