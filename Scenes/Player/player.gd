@@ -12,7 +12,7 @@ const JUMP_SPEED: float = -400.0
 const RUN_SPEED: float = 150.0
 const MAX_FALL: float = 350.0
 
-# animations are handled in the animation tree. click a transition. 
+# animations are handled in the animation tree. click a transition.
 # expression box under Advance. contains code
 
 # Called when the node enters the scene tree for the first time.
@@ -25,16 +25,16 @@ func _enter_tree() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
-	
+
 	if is_on_floor() && Input.is_action_just_pressed("jump"):
 		velocity.y = JUMP_SPEED
-	
+
 	velocity.x = RUN_SPEED * Input.get_axis("left", "right")
 	if !is_equal_approx(velocity.x, 0.0):
 		sprite_2d.flip_h = velocity.x < 0
-	
+
 	velocity.y = clampf(velocity.y, JUMP_SPEED, MAX_FALL)
-	
+
 	y_bound_fall_check()
 	move_and_slide()
 	update_debug_label()

@@ -11,11 +11,11 @@ const JUMP_VELOCITY_LEFT = Vector2(-100, -150)
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	velocity.y += delta * _gravity
-	
-	apply_jump()	
+
+	apply_jump()
 	move_and_slide()
 	flip_me()
-	
+
 	if is_on_floor():
 		velocity.x = 0.0
 		animated_sprite_2d.play("idle")
@@ -23,10 +23,10 @@ func _physics_process(delta: float) -> void:
 func apply_jump() -> void:
 	if !is_on_floor() || !_can_jump || !_seen_player:
 		return
-	
+
 	velocity = JUMP_VELOCITY_RIGHT if animated_sprite_2d.flip_h \
 	else JUMP_VELOCITY_LEFT
-	
+
 	_can_jump = false
 	start_timer()
 	animated_sprite_2d.play("jump")
