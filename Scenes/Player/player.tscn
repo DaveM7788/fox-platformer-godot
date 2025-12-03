@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://k3qyw050g18l"]
+[gd_scene load_steps=30 format=3 uid="uid://k3qyw050g18l"]
 
 [ext_resource type="Script" uid="uid://mdms8wj30scw" path="res://Scenes/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://dbdkxkjogetqm" path="res://assets/player/player.png" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://b38w0c8ixhvq2" path="res://Scenes/Player/player_cam.tscn" id="3_xpcdj"]
+[ext_resource type="PackedScene" uid="uid://si1jb3mun6xr" path="res://Scenes/Bullets/shooter.tscn" id="4_mtuoh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a3d8c"]
 radius = 6.0
@@ -234,3 +235,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CapsuleShape2D_xpcdj")
+
+[node name="Shooter" parent="." instance=ExtResource("4_mtuoh")]
+speed = 300.0
+shoot_delay = 0.2

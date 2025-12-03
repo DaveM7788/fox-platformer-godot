@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c61xhmk58vv8o"]
+[gd_scene load_steps=12 format=3 uid="uid://c61xhmk58vv8o"]
 
 [ext_resource type="PackedScene" uid="uid://b30g8xkbcc5q7" path="res://Scenes/Enemies/enemy_base.tscn" id="1_rctvk"]
 [ext_resource type="Texture2D" uid="uid://581ushl11tco" path="res://assets/enemies/eagle/eagle-attack.png" id="2_jesq6"]
 [ext_resource type="Script" uid="uid://ye633obhsos0" path="res://Scenes/Enemies/Eagle/eagle.gd" id="2_laodr"]
+[ext_resource type="PackedScene" uid="uid://si1jb3mun6xr" path="res://Scenes/Bullets/shooter.tscn" id="4_vnjor"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_laodr"]
 
@@ -70,5 +71,10 @@ collide_with_bodies = false
 
 [node name="DirectionTimer" type="Timer" parent="." index="5"]
 wait_time = 3.0
+
+[node name="Shooter" parent="." index="6" instance=ExtResource("4_vnjor")]
+speed = 170.0
+shoot_delay = 0.5
+bullet_key = 3
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
