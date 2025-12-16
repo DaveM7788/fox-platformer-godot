@@ -7,6 +7,8 @@ const OBJECT_SCENES: Dictionary[Constants.ObjectType, PackedScene] = {
 		preload("res://Scenes/Bullets/enemy_bullet.tscn"),
 	Constants.ObjectType.EXPLOSION:
 		preload("res://Scenes/Explosion/explosion.tscn"),
+	Constants.ObjectType.PICKUP:
+		preload("res://Scenes/Pickups/fruit_pickup.tscn"),
 }
 
 func _enter_tree() -> void:
