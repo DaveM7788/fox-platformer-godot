@@ -2,17 +2,25 @@ extends CharacterBody2D
 
 class_name Player
 
+const DAMAGE = preload("uid://layfqyatywtg")
+const JUMP = preload("uid://bqvugkfv4eg4s")
+
 @export var fall_y_bound: float = 700.0
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var debug_label: Label = $DebugLabel
 @onready var shooter: Shooter = $Shooter
 @onready var sound: AudioStreamPlayer2D = $Sound
+@onready var hurt_timer: Timer = $HurtTimer
 
 const GRAVITY: float = 690.0
 const JUMP_SPEED: float = -400.0
 const RUN_SPEED: float = 150.0
 const MAX_FALL: float = 350.0
+const HURT_JUMP_VELOCITY: Vector2 = Vector2(0, -130.0)
+
+var is_hurt: bool = false
+var is_invincible: bool = false
 
 # animations are handled in the animation tree. click a transition.
 # expression box under Advance. contains code
@@ -32,20 +40,31 @@ func _enter_tree() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
+	get_input()
+	velocity.y = clampf(velocity.y, JUMP_SPEED, MAX_FALL)
+	y_bound_fall_check()
+	move_and_slide()
+	update_debug_label()
 
+
+func get_input() -> void:
+	if is_hurt:
+		return
+	
 	if is_on_floor() && Input.is_action_just_pressed("jump"):
 		velocity.y = JUMP_SPEED
-		sound.play()
+		play_effect(JUMP)
 
 	velocity.x = RUN_SPEED * Input.get_axis("left", "right")
 	if !is_equal_approx(velocity.x, 0.0):
 		sprite_2d.flip_h = velocity.x < 0
 
-	velocity.y = clampf(velocity.y, JUMP_SPEED, MAX_FALL)
 
-	y_bound_fall_check()
-	move_and_slide()
-	update_debug_label()
+func play_effect(effect: AudioStream) -> void:
+	sound.stop()
+	sound.stream = effect
+	sound.play()
+
 
 func update_debug_label() -> void:
 	var ds: String = ""
@@ -57,3 +76,37 @@ func update_debug_label() -> void:
 func y_bound_fall_check() -> void:
 	if global_position.y > fall_y_bound:
 		queue_free()
+
+
+func go_invincible() -> void:
+	if is_invincible:
+		return
+	
+	is_invincible = true
+	var tween: Tween = create_tween()
+	for _i in range(3):
+		tween.tween_property(sprite_2d, "modulate", Color("#fff", 0.0), 0.5)
+		tween.tween_property(sprite_2d, "modulate", Color("#fff", 1.0), 0.5)
+	tween.tween_property(self, "is_invincible", false, 0.0)
+
+
+func apply_hurt_jump() -> void:
+	is_hurt = true
+	velocity = HURT_JUMP_VELOCITY
+	hurt_timer.start()
+	play_effect(DAMAGE)
+
+
+func apply_hit() -> void:
+	if is_invincible:
+		return
+	go_invincible()
+	apply_hurt_jump()
+
+
+func _on_hit_box_area_entered(_area: Area2D) -> void:
+	call_deferred("apply_hit")
+
+
+func _on_hurt_timer_timeout() -> void:
+	is_hurt = false
