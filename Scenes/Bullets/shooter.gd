@@ -30,6 +30,7 @@ func shoot(direction: Vector2) -> void:
 		global_position, direction, speed, bullet_key
 	)
 	timer.start()
+	sound.play()
 
 
 func _on_timer_timeout() -> void:
