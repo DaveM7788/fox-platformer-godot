@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7b0smb37nidu"]
+
+[ext_resource type="Texture2D" uid="uid://bofb73our1xk7" path="res://assets/backgrounds/game_background_3/game_background_3.1.png" id="1_1r6ip"]
+[ext_resource type="AudioStream" uid="uid://n3qanjpuxmt4" path="res://assets/sound/Farm Frolics.ogg" id="2_lixft"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lixft"]
+font_size = 32
+font_color = Color(0.83137256, 0.7411765, 0.05882353, 1)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1r6ip")
+expand_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27439955, 0.4086047, 0.75511634, 0.3529412)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -11.5
+offset_right = 44.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Foxy Antics"
+label_settings = SubResource("LabelSettings_lixft")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_lixft")
+volume_db = -10.0
+autoplay = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 25
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 20
+columns = 5
