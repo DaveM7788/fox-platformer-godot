@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dbwqu5go2wnsk"]
+[gd_scene load_steps=19 format=4 uid="uid://dbwqu5go2wnsk"]
 
 [ext_resource type="Texture2D" uid="uid://cfqj4cpnlrjuq" path="res://assets/tiles/Terrain (16x16).png" id="1_fe7a1"]
 [ext_resource type="Script" uid="uid://b5lj567vetuvc" path="res://Scenes/LevelBase/level_base.gd" id="1_pyubc"]
@@ -9,6 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://b5uwom2q5vsmw" path="res://Scenes/ObjectMaker/object_maker.tscn" id="7_g01eq"]
 [ext_resource type="AudioStream" uid="uid://bs7c613tdwkvy" path="res://assets/sound/Flowing Rocks.ogg" id="8_xvbh0"]
 [ext_resource type="PackedScene" uid="uid://cufsdbuu0knmc" path="res://Scenes/Hud/hud.tscn" id="9_kaauv"]
+[ext_resource type="PackedScene" uid="uid://bl0p6hwwnmn48" path="res://Scenes/BallSpikes/ball_spikes.tscn" id="10_jsu08"]
+[ext_resource type="PackedScene" uid="uid://db7rapl1yto63" path="res://Scenes/MovingPlatformPf/moving_platform_pf.tscn" id="11_cfota"]
+[ext_resource type="PackedScene" uid="uid://ciqxfh2ge0p82" path="res://Scenes/MovingPlatform/moving_platform.tscn" id="12_nxix0"]
+[ext_resource type="PackedScene" uid="uid://batrfpbb6bjgr" path="res://Scenes/FloorSpikes/floor_spikes.tscn" id="13_aptrk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1l5ts"]
 resource_name = "Platforms"
@@ -250,6 +254,24 @@ terrain_set_0/terrain_0/name = "Pink Grass"
 terrain_set_0/terrain_0/color = Color(0.6088188, 0.25728714, 0.25931323, 1)
 sources/0 = SubResource("TileSetAtlasSource_1l5ts")
 
+[sub_resource type="Curve2D" id="Curve2D_kaauv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 567, -127, 0, 0, 0, 0, 568, 3, 0, 0, 0, 0, 625, -70, 0, 0, 0, 0, 626, -152, 0, 0, 0, 0, 567, -127)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_jsu08"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 836, -40, 0, 0, 0, 0, 836, -40, 0, 0, 0, 0, 904, -39, 0, 0, 0, 0, 915, -57, 0, 0, 0, 0, 922, -84, 0, 0, 0, 0, 830, -91, 0, 0, 0, 0, 803, -73, 0, 0, 0, 0, 836, -40)
+}
+point_count = 8
+
+[sub_resource type="Curve2D" id="Curve2D_cfota"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -38, -33, 0, 0, 0, 0, -107, -48, 0, 0, 0, 0, -153, -86, 0, 0, 0, 0, -86, -133, 0, 0, 0, 0, -38, -33)
+}
+point_count = 5
+
 [node name="LevelBase" type="Node2D"]
 script = ExtResource("1_pyubc")
 
@@ -281,3 +303,43 @@ parameters/looping = true
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Hud" parent="CanvasLayer" instance=ExtResource("9_kaauv")]
+
+[node name="BallSpikesHolder" type="Node" parent="."]
+
+[node name="Path2D" type="Path2D" parent="BallSpikesHolder"]
+curve = SubResource("Curve2D_kaauv")
+
+[node name="BallSpikes" parent="BallSpikesHolder/Path2D" instance=ExtResource("10_jsu08")]
+position = Vector2(567, -127)
+
+[node name="MovingPlatformPFHolder" type="Node" parent="."]
+
+[node name="Path2D" type="Path2D" parent="MovingPlatformPFHolder"]
+curve = SubResource("Curve2D_jsu08")
+
+[node name="MovingPlatformPf" parent="MovingPlatformPFHolder/Path2D" instance=ExtResource("11_cfota")]
+position = Vector2(835.8174, -40.002686)
+
+[node name="MovingPlatformTween" type="Node" parent="."]
+
+[node name="Path2D" type="Path2D" parent="MovingPlatformTween"]
+curve = SubResource("Curve2D_cfota")
+
+[node name="MP1" type="Node" parent="MovingPlatformTween"]
+
+[node name="Marker2D" type="Marker2D" parent="MovingPlatformTween/MP1"]
+position = Vector2(-35, -49)
+
+[node name="Marker2D2" type="Marker2D" parent="MovingPlatformTween/MP1"]
+position = Vector2(-135, -49)
+
+[node name="Marker2D3" type="Marker2D" parent="MovingPlatformTween/MP1"]
+position = Vector2(-118, -148)
+
+[node name="MovingPlatform" parent="MovingPlatformTween/MP1" node_paths=PackedStringArray("targets") instance=ExtResource("12_nxix0")]
+targets = [NodePath("../Marker2D"), NodePath("../Marker2D2"), NodePath("../Marker2D3")]
+
+[node name="Spikes" type="Node" parent="."]
+
+[node name="FloorSpikes" parent="Spikes" instance=ExtResource("13_aptrk")]
+position = Vector2(237, -31)
