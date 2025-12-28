@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://dbwqu5go2wnsk"]
+[gd_scene load_steps=20 format=4 uid="uid://dbwqu5go2wnsk"]
 
 [ext_resource type="Texture2D" uid="uid://cfqj4cpnlrjuq" path="res://assets/tiles/Terrain (16x16).png" id="1_fe7a1"]
 [ext_resource type="Script" uid="uid://b5lj567vetuvc" path="res://Scenes/LevelBase/level_base.gd" id="1_pyubc"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://db7rapl1yto63" path="res://Scenes/MovingPlatformPf/moving_platform_pf.tscn" id="11_cfota"]
 [ext_resource type="PackedScene" uid="uid://ciqxfh2ge0p82" path="res://Scenes/MovingPlatform/moving_platform.tscn" id="12_nxix0"]
 [ext_resource type="PackedScene" uid="uid://batrfpbb6bjgr" path="res://Scenes/FloorSpikes/floor_spikes.tscn" id="13_aptrk"]
+[ext_resource type="PackedScene" uid="uid://qdne2bcad7cn" path="res://Scenes/Boss/boss.tscn" id="14_3cf75"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1l5ts"]
 resource_name = "Platforms"
@@ -343,3 +344,6 @@ targets = [NodePath("../Marker2D"), NodePath("../Marker2D2"), NodePath("../Marke
 
 [node name="FloorSpikes" parent="Spikes" instance=ExtResource("13_aptrk")]
 position = Vector2(237, -31)
+
+[node name="Boss" parent="." instance=ExtResource("14_3cf75")]
+position = Vector2(1150, 13)

@@ -1,0 +1,272 @@
+[gd_scene load_steps=24 format=3 uid="uid://qdne2bcad7cn"]
+
+[ext_resource type="Script" uid="uid://bxpfgryykylb0" path="res://Scenes/Boss/boss.gd" id="1_f2ymq"]
+[ext_resource type="Texture2D" uid="uid://c10efqt2nopww" path="res://assets/enemies/boss/boss.png" id="1_qg2l1"]
+[ext_resource type="PackedScene" uid="uid://si1jb3mun6xr" path="res://Scenes/Bullets/shooter.tscn" id="3_emfxe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f2ymq"]
+radius = 23.0
+height = 80.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_emfxe"]
+size = Vector2(20, 390.75)
+
+[sub_resource type="Animation" id="Animation_qg2l1"]
+resource_name = "arrive"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.5, 0.5)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"activate_collisions"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_f2ymq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_emfxe"]
+resource_name = "pulse"
+length = 3.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -150), Vector2(0, 0), Vector2(0, -150), Vector2(0, 0), Vector2(0, -150), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u1fj0"]
+resource_name = "attack"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-200, 0), Vector2(0, -150), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_8cuti"]
+resource_name = "hit"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8000001, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.654902, 0.19215687, 0.28627452, 1), Color(1, 1, 1, 1), Color(0.654902, 0.19215687, 0.28627452, 1), Color(1, 1, 1, 1), Color(0.654902, 0.19215687, 0.28627452, 1), Color(1, 1, 1, 1), Color(0.654902, 0.19215687, 0.28627452, 1), Color(1, 1, 1, 1), Color(0.654902, 0.19215687, 0.28627452, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"set_invincibile"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_emfxe"]
+_data = {
+&"RESET": SubResource("Animation_f2ymq"),
+&"arrive": SubResource("Animation_qg2l1"),
+&"attack": SubResource("Animation_u1fj0"),
+&"hit": SubResource("Animation_8cuti"),
+&"pulse": SubResource("Animation_emfxe")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qg2l1"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f2ymq"]
+animation = &"arrive"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_emfxe"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u1fj0"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8cuti"]
+animation = &"pulse"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bmtw7"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"on_trigger"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jru1c"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l8t4p"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8celw"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0tv5u"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_emfxe"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_qg2l1"]
+states/End/position = Vector2(946, 99.25)
+states/RESET/node = SubResource("AnimationNodeAnimation_qg2l1")
+states/RESET/position = Vector2(344, 98.625)
+states/Start/position = Vector2(200, 98.9375)
+states/arrive/node = SubResource("AnimationNodeAnimation_f2ymq")
+states/arrive/position = Vector2(497.5, 99.25)
+states/attack/node = SubResource("AnimationNodeAnimation_emfxe")
+states/attack/position = Vector2(650.5, 99.25)
+states/hit/node = SubResource("AnimationNodeAnimation_u1fj0")
+states/hit/position = Vector2(631.5, 209.5)
+states/pulse/node = SubResource("AnimationNodeAnimation_8cuti")
+states/pulse/position = Vector2(801.5, 99.625)
+transitions = ["RESET", "arrive", SubResource("AnimationNodeStateMachineTransition_bmtw7"), "arrive", "attack", SubResource("AnimationNodeStateMachineTransition_jru1c"), "attack", "pulse", SubResource("AnimationNodeStateMachineTransition_l8t4p"), "pulse", "attack", SubResource("AnimationNodeStateMachineTransition_8celw"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_0tv5u"), "hit", "pulse", SubResource("AnimationNodeStateMachineTransition_emfxe")]
+graph_offset = Vector2(-4.5657158e-05, 19.312529)
+
+[node name="Boss" type="Node2D"]
+script = ExtResource("1_f2ymq")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Shooter" parent="Visuals" instance=ExtResource("3_emfxe")]
+position = Vector2(0, 47.054)
+speed = 150.0
+bullet_key = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1_qg2l1")
+offset = Vector2(0, -60)
+
+[node name="HitBox" type="Area2D" parent="Visuals"]
+collision_layer = 8
+collision_mask = 4
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/HitBox"]
+position = Vector2(1, -31)
+shape = SubResource("CapsuleShape2D_f2ymq")
+
+[node name="Trigger" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+position = Vector2(-132, -178.625)
+shape = SubResource("RectangleShape2D_emfxe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_emfxe")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+deterministic = false
+tree_root = SubResource("AnimationNodeStateMachine_qg2l1")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/on_trigger = false
+
+[connection signal="area_entered" from="Visuals/HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="area_entered" from="Trigger" to="." method="_on_trigger_area_entered"]
