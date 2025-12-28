@@ -11,6 +11,8 @@ signal on_create_object(
 
 signal on_scored(points: int)
 
+signal on_boss_killed()
+
 # ----------------------------------
 
 func emit_on_create_bullet(
@@ -29,3 +31,7 @@ func emit_on_create_object(
 
 func emit_on_scored(points: int) -> void:
 	on_scored.emit(points)
+
+
+func emit_on_boss_killed() -> void:
+	on_boss_killed.emit()
