@@ -6,6 +6,7 @@ const DAMAGE = preload("uid://layfqyatywtg")
 const JUMP = preload("uid://bqvugkfv4eg4s")
 
 @export var fall_y_bound: float = 700.0
+@export var lives: int = 3
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var debug_label: Label = $DebugLabel
@@ -27,15 +28,22 @@ var is_invincible: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	call_deferred("late_init")
+
+
+func late_init() -> void:
+	SignalHub.emit_on_player_hit(lives, false)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		var dir: Vector2 = Vector2.LEFT if sprite_2d.flip_h else Vector2.RIGHT
 		shooter.shoot(dir)
 
+
 func _enter_tree() -> void:
 	add_to_group(Constants.PLAYER_GROUP)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -73,9 +81,10 @@ func update_debug_label() -> void:
 	ds += "v: %.1f %.1f" % [velocity.x, velocity.y]
 	debug_label.text = ds
 
+
 func y_bound_fall_check() -> void:
 	if global_position.y > fall_y_bound:
-		queue_free()
+		reduce_lives(lives)
 
 
 func go_invincible() -> void:
@@ -100,6 +109,9 @@ func apply_hurt_jump() -> void:
 func apply_hit() -> void:
 	if is_invincible:
 		return
+	if !reduce_lives(1):
+		return
+	
 	go_invincible()
 	apply_hurt_jump()
 
@@ -110,3 +122,12 @@ func _on_hit_box_area_entered(_area: Area2D) -> void:
 
 func _on_hurt_timer_timeout() -> void:
 	is_hurt = false
+
+
+func reduce_lives(reduction: int) -> bool:
+	lives -= reduction
+	SignalHub.emit_on_player_hit(lives, true)
+	if lives <= 0:
+		set_physics_process(false)
+		return false
+	return true

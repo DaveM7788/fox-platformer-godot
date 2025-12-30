@@ -6,6 +6,7 @@ const HIGH_SCORE_DISPLAY = preload("uid://bqu36ypq85qq")
 
 func _ready() -> void:
 	set_scores()
+	get_tree().paused = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
