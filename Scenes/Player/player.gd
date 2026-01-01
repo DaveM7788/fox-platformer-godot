@@ -7,12 +7,15 @@ const JUMP = preload("uid://bqvugkfv4eg4s")
 
 @export var fall_y_bound: float = 700.0
 @export var lives: int = 3
+@export var camera_min: Vector2 = Vector2(-1000, 1000)
+@export var camera_max: Vector2 = Vector2(1000, -1000)
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var debug_label: Label = $DebugLabel
 @onready var shooter: Shooter = $Shooter
 @onready var sound: AudioStreamPlayer2D = $Sound
 @onready var hurt_timer: Timer = $HurtTimer
+@onready var player_cam: Camera2D = $PlayerCam
 
 const GRAVITY: float = 690.0
 const JUMP_SPEED: float = -400.0
@@ -28,7 +31,15 @@ var is_invincible: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	set_camera_limits()
 	call_deferred("late_init")
+
+
+func set_camera_limits() -> void:
+	player_cam.limit_bottom = int(camera_min.y)
+	player_cam.limit_left = int(camera_min.x)
+	player_cam.limit_top = int(camera_max.y)
+	player_cam.limit_right = int(camera_max.x)
 
 
 func late_init() -> void:

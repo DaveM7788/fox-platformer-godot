@@ -15,8 +15,15 @@ var can_continue := false
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("quit"):
 		GameManager.load_main()
+	
+	if event.is_action_pressed("next"):
+		GameManager.load_next_level()
+	
 	if can_continue && event.is_action_pressed("shoot"):
-		GameManager.load_main()
+		if v_box_game_over.visible:
+			GameManager.load_main()
+		else:
+			GameManager.load_next_level()
 
 
 func _ready() -> void:
