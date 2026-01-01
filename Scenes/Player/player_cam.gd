@@ -1,7 +1,7 @@
 extends Camera2D
 
-@export var shake_amount := 10.0
-@export var shake_time := 0.9
+@export var shake_amount := 11.0
+@export var shake_time := 0.6
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

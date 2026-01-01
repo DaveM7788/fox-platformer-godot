@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=4 uid="uid://dbwqu5go2wnsk"]
+[gd_scene load_steps=22 format=4 uid="uid://dbwqu5go2wnsk"]
 
 [ext_resource type="Texture2D" uid="uid://cfqj4cpnlrjuq" path="res://assets/tiles/Terrain (16x16).png" id="1_fe7a1"]
 [ext_resource type="Script" uid="uid://b5lj567vetuvc" path="res://Scenes/LevelBase/level_base.gd" id="1_pyubc"]
 [ext_resource type="PackedScene" uid="uid://k3qyw050g18l" path="res://Scenes/Player/player.tscn" id="2_1l5ts"]
+[ext_resource type="PackedScene" uid="uid://b1lgs7m55wwkj" path="res://Scenes/ParallaxBG/parallax_bg.tscn" id="2_vnryj"]
 [ext_resource type="PackedScene" uid="uid://dla3yhqhtdtim" path="res://Scenes/Enemies/Snail/snail.tscn" id="3_2wk6i"]
 [ext_resource type="PackedScene" uid="uid://dco14phgesxml" path="res://Scenes/Enemies/Frog/frog.tscn" id="4_fu0cx"]
 [ext_resource type="PackedScene" uid="uid://c61xhmk58vv8o" path="res://Scenes/Enemies/Eagle/eagle.tscn" id="5_kkf17"]
@@ -276,6 +277,9 @@ point_count = 5
 
 [node name="LevelBase" type="Node2D"]
 script = ExtResource("1_pyubc")
+
+[node name="ParallaxBG" parent="." instance=ExtResource("2_vnryj")]
+layer_scale = 0.75
 
 [node name="Platforms" type="TileMapLayer" parent="."]
 position = Vector2(21, -14)
