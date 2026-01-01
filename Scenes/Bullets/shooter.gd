@@ -11,10 +11,12 @@ class_name Shooter
 @onready var sound: AudioStreamPlayer2D = $Sound
 
 var _can_shoot: bool = false
+var _player_ref: Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	timer.wait_time = shoot_delay
+	_player_ref = get_tree().get_first_node_in_group(Constants.PLAYER_GROUP)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,6 +33,12 @@ func shoot(direction: Vector2) -> void:
 	)
 	timer.start()
 	sound.play()
+
+
+func shoot_at_player() -> void:
+	if _player_ref == null:
+		return
+	shoot(global_position.direction_to(_player_ref.global_position))
 
 
 func _on_timer_timeout() -> void:

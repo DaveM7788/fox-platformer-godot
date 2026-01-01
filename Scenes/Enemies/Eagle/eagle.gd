@@ -15,17 +15,17 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	shoot()
 
+
 func shoot() -> void:
 	if player_detector.is_colliding():
-		var dir: Vector2 = global_position.direction_to(
-			_player_ref.global_position
-		)
-		shooter.shoot(dir)
+		shooter.shoot_at_player()
+
 
 func fly_to_player() -> void:
 	flip_me()
 	var x_dir: float = 1.0 if animated_sprite_2d.flip_h else -1.0
 	_fly_direction = Vector2(x_dir, 1) * fly_speed
+
 
 func _on_direction_timer_timeout() -> void:
 	fly_to_player()

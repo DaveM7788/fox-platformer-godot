@@ -10,19 +10,15 @@ extends Node2D
 	$AnimationTree["parameters/playback"]
 @onready var visuals: Node2D = $Visuals
 
-var _player_ref: Player
 var _invincible := false
 
+
 func _ready() -> void:
-	_player_ref = get_tree().get_first_node_in_group(Constants.PLAYER_GROUP)
-	if _player_ref == null:
-		queue_free()
+	pass
 
 
 func shoot() -> void:
-	shooter.shoot(
-		shooter.global_position.direction_to(_player_ref.global_position)
-	)
+	shooter.shoot_at_player()
 
 
 func activate_collisions() -> void:
